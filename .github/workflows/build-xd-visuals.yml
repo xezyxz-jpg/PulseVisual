@@ -1,0 +1,58 @@
+name: Build XD Visuals
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - xd-visuals
+    paths:
+      - '.github/workflows/build-xd-visuals.yml'
+      - 'XD-Visuals-source.zip'
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source archive
+        uses: actions/checkout@v4
+
+      - name: Set up Java 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+
+      - name: Extract XD Visuals source
+        run: |
+          test -f XD-Visuals-source.zip
+          unzip -q XD-Visuals-source.zip -d .
+          test -f XD-Visuals/build.gradle
+          test -f XD-Visuals/gradlew
+
+      - name: Build mod
+        working-directory: XD-Visuals
+        run: |
+          chmod +x ./gradlew
+          ./gradlew clean build --no-daemon --stacktrace --console=plain
+
+      - name: Verify mod JAR
+        working-directory: XD-Visuals
+        run: |
+          set -e
+          JAR="$(find build/libs -maxdepth 1 -type f -name '*.jar' ! -name '*-sources.jar' | head -n 1)"
+          test -n "$JAR"
+          echo "Built: $JAR"
+          jar tf "$JAR" | grep -q 'fabric.mod.json'
+          unzip -p "$JAR" fabric.mod.json | grep -q '"id": "xdvisuals"'
+          sha256sum "$JAR"
+
+      - name: Upload XD Visuals JAR
+        uses: actions/upload-artifact@v4
+        with:
+          name: XD-Visuals-Minecraft-1.21.11
+          path: XD-Visuals/build/libs/*.jar
+          if-no-files-found: error
+          retention-days: 14
