@@ -1,15 +1,16 @@
-name: Build and release
+name: Build XZ Visuals
 on:
+  pull_request:
   push:
     branches: [main]
   workflow_dispatch:
 permissions:
   contents: write
 concurrency:
-  group: pulsevisual-release
+  group: xzvisuals-release
   cancel-in-progress: false
 jobs:
-  release:
+  build:
     runs-on: ubuntu-latest
     timeout-minutes: 25
     steps:
@@ -20,7 +21,8 @@ jobs:
           java-version: '21'
       - name: Build and regression tests
         run: bash ./gradlew build --no-daemon --console=plain
-      - name: Publish new version
+      - name: Publish release
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         env:
           GH_TOKEN: ${{ github.token }}
         shell: bash
@@ -33,8 +35,7 @@ jobs:
             echo "Version already published; bump mod_version to publish changes."
             exit 0
           fi
-          jar="build/libs/pulsevisual-$version.jar"
-          sha=$(sha256sum "$jar" | cut -d ' ' -f 1)
-          jq -n --arg version "$version" --arg sha "$sha" '{version:$version,minecraft:"1.21.11",loader:"fabric",sha256:$sha}' > pulsevisual-update.json
-          git archive --format=zip --prefix=PulseVisual/ HEAD > "PulseVisual-$version-sources.zip"
-          gh release create "$tag" "$jar" pulsevisual-update.json "PulseVisual-$version-sources.zip" --target "$GITHUB_SHA" --title "PulseVisual $version" --notes-file RELEASE_NOTES.md
+          jar="build/libs/xzvisuals-$version.jar"
+          test -f "$jar"
+          git archive --format=zip --prefix=XZ-Visuals/ HEAD > "XZ-Visuals-$version-sources.zip"
+          gh release create "$tag" "$jar" "XZ-Visuals-$version-sources.zip" --target "$GITHUB_SHA" --title "XZ Visuals $version" --notes-file RELEASE_NOTES.md
