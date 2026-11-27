@@ -48,7 +48,7 @@ tasks.named('test') { failOnNoDiscoveredTests = false }
 // Isolated local-world integration tests; the test mod is not packaged in the release.
 fabricApi.configureTests {
     createSourceSet = true
-    modId = 'pulsevisual-test'
+    modId = 'xzvisuals-test'
     enableGameTests = false
     enableClientGameTests = true
     clearRunDirectory = false
