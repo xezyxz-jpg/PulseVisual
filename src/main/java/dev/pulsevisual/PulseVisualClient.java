@@ -24,8 +24,6 @@ public final class PulseVisualClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         ConfigManager.load();
-        dev.pulsevisual.update.AutoUpdater.start();
-        net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents.CLIENT_STOPPING.register(client->dev.pulsevisual.update.AutoUpdater.onStopping());
         KeyMapping.Category category = KeyMapping.Category.register(
                 Identifier.fromNamespaceAndPath("pulsevisual", "settings"));
         KeyMapping settingsKey = KeyBindingHelper.registerKeyBinding(new KeyMapping(

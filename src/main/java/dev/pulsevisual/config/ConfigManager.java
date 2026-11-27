@@ -11,7 +11,9 @@ import java.nio.file.Path;
 
 public final class ConfigManager {
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
-    private static final Path FILE = FabricLoader.getInstance().getConfigDir().resolve("pulsevisual.json");
+    private static final Path CONFIG_DIR = FabricLoader.getInstance().getConfigDir();
+    private static final Path FILE = CONFIG_DIR.resolve("xzvisuals.json");
+    private static final Path LEGACY_FILE = CONFIG_DIR.resolve("pulsevisual.json");
     private static VisualConfig config = new VisualConfig();
 
     private ConfigManager() { }
@@ -37,13 +39,15 @@ public final class ConfigManager {
     }
 
     public static void load() {
-        if (!Files.exists(FILE)) return;
+        Path source = Files.exists(FILE) ? FILE : LEGACY_FILE;
+        if (!Files.exists(source)) return;
         try {
-            VisualConfig loaded = GSON.fromJson(Files.readString(FILE, StandardCharsets.UTF_8), VisualConfig.class);
+            VisualConfig loaded = GSON.fromJson(Files.readString(source, StandardCharsets.UTF_8), VisualConfig.class);
             if (loaded != null) config = loaded;
             config.sanitize();
+            if (!source.equals(FILE)) save();
         } catch (Exception exception) {
-            System.err.println("[PulseVisual] Could not read config: " + exception.getMessage());
+            System.err.println("[XZ Visuals] Could not read config: " + exception.getMessage());
         }
     }
 
@@ -53,7 +57,7 @@ public final class ConfigManager {
             Files.createDirectories(FILE.getParent());
             Files.writeString(FILE, GSON.toJson(config), StandardCharsets.UTF_8);
         } catch (IOException exception) {
-            System.err.println("[PulseVisual] Could not save config: " + exception.getMessage());
+            System.err.println("[XZ Visuals] Could not save config: " + exception.getMessage());
         }
     }
 }

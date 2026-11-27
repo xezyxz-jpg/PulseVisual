@@ -2,7 +2,7 @@ package dev.pulsevisual.config;
 
 public final class VisualConfig {
     public int animationRevision;
-    public boolean automaticUpdates = true;
+    public boolean automaticUpdates = false;
     public boolean normalHitParticles = true;
     public boolean criticalHitParticles = true;
     public boolean hitFlash = true;
@@ -95,7 +95,7 @@ public final class VisualConfig {
     public static final class Pearl {
         public boolean enabled, themeColor=true, glow=true, rainbow, gradient=true, pulse, clearOnTeleport=true;
         public String mode="Smooth Line", scope="Own Pearls";
-        public int color=0xFF85EAF3, secondaryColor=0xFFB285F3;
+        public int color=0xFFB58CFF, secondaryColor=0xFF8D65D8;
         public float alpha=.85f,width=.035f,length=3,fadeSpeed=1;
         public void sanitize(){
             alpha=clamp(alpha,0,1);width=clamp(width,.01f,.15f);
@@ -104,7 +104,7 @@ public final class VisualConfig {
     }
     public static final class Hat {
         public boolean enabled;
-        public int color = 0xFF85EAF3;
+        public int color = 0xFFB58CFF;
         public float alpha = 0.72f, size = 0.7f, height = 0.12f, rotationSpeed = 0.45f;
         public String style = "Filled + Outline";
         public boolean rainbow, gradient = true;
@@ -118,7 +118,7 @@ public final class VisualConfig {
     public static final class Trail {
         public boolean enabled;
         public String mode = "Ribbon";
-        public int color = 0xFF85EAF3, secondaryColor = 0xFFB285F3;
+        public int color = 0xFFB58CFF, secondaryColor = 0xFF8D65D8;
         public float width = 0.38f, length = 2.7f, fadeSpeed = 1, alpha = 0.8f;
         public float glowStrength = 0.55f, smoothness = 0.65f, rainbowSpeed = 1;
         public boolean gradient = true;
@@ -138,8 +138,8 @@ public final class VisualConfig {
         public String style="Glass", font="Default";
         public boolean animations=true, textShadow=false;
         public String preset = "Dark";
-        public int primary = 0xFF172332, accent = 0xFF85EAF3, background = 0xFF080D16;
-        public int text = 0xFFE5EDF4, enabled = 0xFF246E78, control = 0xFF85EAF3;
+        public int primary = 0xFF191426, accent = 0xFFB58CFF, background = 0xFF0B0912;
+        public int text = 0xFFF0EAFB, enabled = 0xFF65469A, control = 0xFFB58CFF;
         public float opacity = 0.92f, blur = 0.55f, rounding = 8;
         public void sanitize() {
             guiScale=clamp(guiScale,.65f,1.5f);

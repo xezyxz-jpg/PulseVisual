@@ -1,10 +1,10 @@
 {
   "schemaVersion": 1,
-  "id": "pulsevisual",
+  "id": "xzvisuals",
   "version": "${version}",
-  "name": "PulseVisual",
+  "name": "XZ Visuals",
   "description": "Client-only visual effects, animated crosshair and HUD cosmetics.",
-  "authors": ["PulseVisual"],
+  "authors": ["XZ Visuals"],
   "license": "MIT",
   "environment": "client",
   "entrypoints": { "client": ["dev.pulsevisual.PulseVisualClient"] },

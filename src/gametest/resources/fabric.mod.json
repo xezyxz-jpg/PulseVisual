@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
-  "id": "pulsevisual-test",
+  "id": "xzvisuals-test",
   "version": "1.0.0",
-  "name": "PulseVisual regression tests",
+  "name": "XZ Visuals regression tests",
   "environment": "client",
   "entrypoints": { "fabric-client-gametest": ["dev.pulsevisual.test.VisualGameTest"] },
-  "depends": { "pulsevisual": "*" }
+  "depends": { "xzvisuals": "*" }
 }
