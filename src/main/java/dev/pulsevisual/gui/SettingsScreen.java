@@ -34,7 +34,7 @@ public final class SettingsScreen extends Screen {
     private EditBox editor;
     private ColorSetting picker,colorDrag;
     private ModeSetting dropdown;
-    public SettingsScreen(Screen parent){super(Component.literal("PulseVisual"));this.parent=parent;}
+    public SettingsScreen(Screen parent){super(Component.literal("XZ Visuals"));this.parent=parent;}
     private int vw(){return (int)(width/scale);}
     private int vh(){return (int)(height/scale);}
     private int w(){return preview?480:650;}
@@ -87,7 +87,7 @@ public final class SettingsScreen extends Screen {
         int px=x(),py=y(),pw=w(),ph=h(),r=radius();
         Rounded.fill(g,px-3,py-2,pw+6,ph+6,r+3,ColorUtil.alpha(0xFF000000,.3f*open));
         Rounded.fill(g,px,py,pw,ph,r,ColorUtil.alpha(t.primary,("Solid".equals(t.style)?1:t.opacity)*open));
-        text(g,"PULSE",px+16,py+15,t.text);text(g,"VISUAL",px+62,py+15,t.accent);
+        text(g,"XZ",px+16,py+15,t.text);text(g,"VISUALS",px+38,py+15,t.accent);
         text(g,"PERSONALIZE YOUR GAME",px+16,py+30,ColorUtil.mix(t.text,t.primary,.45f));
         button(g,px+pw-91,py+13,75,preview?"Full menu":"Preview",preview);
         for(int i=0;i<3;i++)button(g,px+142+i*92,py+48,86,ModuleManager.TABS[i],i==tab);
